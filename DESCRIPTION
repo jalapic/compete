@@ -1,0 +1,26 @@
+Package: compete
+Title: Organizing and analyzing competition data
+Version: 0.0.0.9000
+Description: Organize data obtained from pairwise contests
+    into event lists, sociomatrices and network graphs,
+    and analyze social structure of groups, as well as
+    ratings and rankings of individuals.
+Authors: James P. Curley <jc3181@columbia.edu>
+Maintainer: James P. Curley <jc3181@columbia.edu>
+Depends:
+    R (>= 3.1.0)
+License: >GPL-3
+LazyData: true
+Imports:
+    dplyr,
+    igraph,
+    reshape2,
+    tidyr,
+    PlayerRatings
+Suggests:
+    knitr,
+    ggplot2,
+    testthat
+URL: https://github.com/jalapic/compete
+BugReports: https://github.com/jalapic/compete
+VignetteBuilder: knitr
