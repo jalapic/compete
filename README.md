@@ -1,17 +1,16 @@
 # compete
 Analyzing head-to-head competitive interaction data
 
+
 -----
 ### Author: James P. Curley
 email:  jc3181  AT columbia DOT edu
 
-
------
-* this project is still very much in the development phase
+Please note:  this project is still very much in the development phase.  More functions and capabilites are forthcoming very shortly.
 
 
 -----
-##### Installlation
+##### Installation
 ```
 devtools::install_github('jalapic/compete')
 ```
