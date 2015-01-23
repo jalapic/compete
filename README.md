@@ -8,3 +8,9 @@
 * email:  jc3181  AT columbia DOT edu
 
 * this project is still very much in the development phase
+
+
+
+```
+devtools::install_github('jalapic/compete')
+```
