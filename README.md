@@ -1,6 +1,6 @@
 # compete
 
-## Analyzing head-to-head competitive interaction data
+##### Analyzing head-to-head competitive interaction data
 
 
 ### Author: James P. Curley
