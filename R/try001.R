@@ -1,11 +1,11 @@
 try001 <- function(n){
-    if(!require(rPython, character.only = TRUE){
+    if(!require(rPython, character.only = TRUE)){
         install.packages(rPython, dep = TRUE, repos = "http://star-www.st-andrews.ac.uk/cran/")
         if(!require(rPython,character.only = TRUE)){
             stop("Package not found")
         }
     }
-    if(!require(RJSONIO, character.only = TRUE){
+    if(!require(RJSONIO, character.only = TRUE)){
         install.packages(RJSONIO, dep = TRUE, repos = "http://star-www.st-andrews.ac.uk/cran/")
         if(!require(RJSONIO,character.only = TRUE)){
             stop("Package not found")
