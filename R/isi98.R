@@ -140,18 +140,6 @@ fun<-function(M){
 return(result)
 }
 
-fun2<-function(M){
-    n=ncol(M)
-    result=rep(0,2)
-    k=M-t(M)
-    k[lower.tri(k)]=0
-    temp = matrix(rep(c(1:n),n), nrow = n, ncol = n, byrow = T) - rep(n)
-    result = sum((k<0)*temp)
-return(result)
-}
-
-
-
 
 
 ###
