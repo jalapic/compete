@@ -11,7 +11,9 @@ def fun(M):
     result = [0,0]
     k = M[:]
     counter = 0
-    for i in range(n):
-        temp =
-        part_counter = len()
+    for i in range(1,n):
+        temp = k[i][0:i]
+        part_counter = len([x for x in temp if x >0])
+        counter = part_counter + counter
+
 

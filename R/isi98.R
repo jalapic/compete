@@ -1,44 +1,14 @@
-##important::
-#before runing the function in this file,you should replace all the
-#diagonal cells with 0
-####
-
-
-###
-# give the main function first
-###
-
-###
-#fun_1998 is the algorithm of 1998 version paper
-#this function is used to calculate the best dominance rank which can
-#minimize the inconsistentcy and SI.
-###
-#please make sure that you have loaded all the required function
-#'fun','delta_si','nature','matrix_change','swap' first.
-##
-#Input:
-#M: the original dominance matrix
-#nTries:the stop time of the algorithm, 100 is suggested.
-
-#Output:
-##Imin: the smallest inconsistentcy we can find
-#
-#SImin: the smallest SI we can find when we reach the smallest inconsistentcy
-#
-#Best:the best sequence (the initial n individual named 1 to n initially)
-#when many best sequence exists, we use the pearson correlation to determine which
-#is optimal
-#
-#bestmatrix: the dominance matrix corresponding to the best sequence(one to one),
-#when many best sequence exists, we use the pearson correlation to determine which
-#is optimal
-###
-#example to use function 'fun_1998'
-#M is the original dominance matrix
-#a=fun_1998(M,100)
-#a
-#all the result have been saved in a
-## main funcion begins
+#' Compute best ranked matrixed besed on I&SI method 1998
+#'
+#' @param M A competition results or win-loss matrix
+#' @param nTries Number of iterations
+#' @return A computed ranked matrix best_matrix best_ranking I and SI
+#' @examples
+#' isi98(mouse)
+#' @section Further details:
+#' Add more detailed description.
+#' See \code{\link{isi98}}: for further info.
+#' @export
 
 isi98<-function(M,nTries){
     n<-ncol(M)
