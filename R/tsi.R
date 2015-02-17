@@ -13,7 +13,7 @@ tsi<-function(M,n){
     Mo_wl <- Mo_wl*Mo
     Mr <- matrix_change(M,rank1)
     Mr_wl <- change2(Mr)
-    Mr_wl <- Mr_wl*M
+    Mr_wl <- Mr_wl*Mr
     total = sum(Mo)
     t_o = sum(Mo_wl)/total
     t_r = sum(Mr_wl)/total
@@ -21,7 +21,7 @@ tsi<-function(M,n){
     e_r = find_er(m,n)
     t_o_hat = (t_o-e_o)/(1-e_o)
     t_r_hat = (t_r-e_r)/(1-e_r)
-    result = list(rank = rank, t_r = t_o, t_o = t_r, t_r_hat = t_o_hat, t_o_hat = t_r_hat)
+    result = list(rank = rank, t_r = t_r, t_o = t_o, t_r_hat = t_r_hat, t_o_hat = t_o_hat)
     return(result)
 }
 
