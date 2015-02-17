@@ -7,19 +7,21 @@
 tsi<-function(M,n){
     m <- nrow(M)
     rank <- alway(M)
-    Mr <- matrix_change(M,rank)
+    rank1 <- rank1(M)
+    Mo <- matrix_change(M,rank)
+    Mo_wl <- change2(Mo)
+    Mo_wl <- Mo_wl*Mo
+    Mr <- matrix_change(M,rank1)
     Mr_wl <- change2(Mr)
-    Mr_wl <- Mr_wl*Mr
-    Mo_wl <- change2(M)
-    Mo_wl <- Mo_wl*M
-    total = sum(Mr)
-    t_r = sum(Mr_wl)/total
+    Mr_wl <- Mr_wl*M
+    total = sum(Mo)
     t_o = sum(Mo_wl)/total
-    e_r = find_er(m,n)
+    t_r = sum(Mr_wl)/total
     e_o = find_eo(m,n)
-    t_r_hat = (t_r-e_r)/(1-e_r)
+    e_r = find_er(m,n)
     t_o_hat = (t_o-e_o)/(1-e_o)
-    result = list(rank = rank, t_o = t_o, t_r = t_r, t_o_hat = t_o_hat, t_r_hat = t_r_hat)
+    t_r_hat = (t_r-e_r)/(1-e_r)
+    result = list(rank = rank, t_r = t_o, t_o = t_r, t_r_hat = t_o_hat, t_o_hat = t_r_hat)
     return(result)
 }
 
@@ -166,3 +168,20 @@ find_eo_large <- function(m,n,n_tries){
     return(result)
 }
 
+rank1 <- function(M){
+    n <- nrow(M)
+    k = rowSums(M)
+    p <- matrix(c(c(1:n),k), nrow = 2, ncol = n, byrow = TRUE)
+    for(i in 2:n){
+        for (j in 1:i){
+            if (p[2,i] > p[2,j]){
+                temp = p[,i]
+                p[,i] = p[,j]
+                p[,j] = temp
+            }
+        }
+    }
+    print(p)
+    return(p[1,])
+
+}
