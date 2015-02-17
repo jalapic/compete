@@ -2,14 +2,13 @@
 % Please edit documentation in R/notexported.R
 \name{mtxbinom}
 \alias{mtxbinom}
-\title{Extra, not-exported, functions}
+\title{Extra, not-exported, functions
+Function required for transforming to 1/0 win/loss matrix based on binomial distribution}
 \usage{
 mtxbinom(mtx, p = 0.5, alpha = 0.05)
 }
-\arguments{
-\item{m}{A matrix with individuals ordered identically in rows and columns.}
-}
 \description{
+Extra, not-exported, functions
 Function required for transforming to 1/0 win/loss matrix based on binomial distribution
 }
 
