@@ -119,4 +119,50 @@ find_eo <- function(m,n){
     return(eo_mean_table[m,n])
 }
 
+#This function is used to calculate the expected tau r for large team number or large matches number
+#input is a number of teams and number of matches between each teams
+#output is a expected tau r
+find_er_large <- function(m,n,n_tries){
+    sum = 0
+    for (i in 1:n_tries){
+        M = matrix(sample(n,m*m,replace=TRUE),m,m)
+        M[lower.tri(M)] = 0
+        M2 = n-t(M)
+        M2[upper.tri(M2)] = 0
+        Mk = M+M2
+        diag(Mk) <- 0
+        Mr <- Mk
+        Mr_wl <- change2(Mr)
+        Mr_wl <- Mr_wl*Mr
+        total = sum(Mr)
+        t_r = sum(Mr_wl)/total
+        sum = t_r + sum
+    }
+    result = sum/n_tries
+    return(result)
+}
+
+#This function is used to calculate the expected tau o for large team number or large matches number
+#input is a number of teams and number of matches between each teams
+#output is a expected tau o
+find_eo_large <- function(m,n,n_tries){
+    sum = 0
+    for (i in 1:n_tries){
+        M = matrix(sample(n,m*m,replace=TRUE),m,m)
+        M[lower.tri(M)] = 0
+        M2 = n-t(M)
+        M2[upper.tri(M2)] = 0
+        Mk = M+M2
+        diag(Mk) <- 0
+        rank <- alway(Mk)
+        Mr <- matrix_change(Mk,rank)
+        Mr_wl <- change2(Mr)
+        Mr_wl <- Mr_wl*Mr
+        total = sum(Mr)
+        t_r = sum(Mr_wl)/total
+        sum = t_r + sum
+    }
+    result = sum/n_tries
+    return(result)
+}
 
