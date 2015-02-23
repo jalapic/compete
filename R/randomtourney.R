@@ -29,75 +29,24 @@
 randomtourney <- function(n,matchups=2, pties=0, type="char"){
 
 
-if (n>325) { stop("randomtourney allows a maximum of 325 individuals")}
+  if (n>325) { stop("randomtourney allows a maximum of 325 individuals")}
 
-indivs <- apply(combn(LETTERS[1:26],2), 2, function(x) paste(x[1],x[2],sep=""))
-N <- sample(indivs, n)
+  indivs <- apply(combn(LETTERS[1:26],2), 2, function(x) paste(x[1],x[2],sep=""))
+  N <- sample(indivs, n)
 
-m<-combn(N,2)
-is.even <- function(x) x %% 2 == 0
+  m<-combn(N,2)
+  is.even <- function(x) x %% 2 == 0
 
-if (is.even(matchups)==TRUE & is.numeric(matchups)==TRUE) {
+  if (is.even(matchups)==TRUE & is.numeric(matchups)==TRUE) {
 
-m1 <- matrix(rep(m, matchups/2) , nrow=nrow(m))
-m2 <- rbind(m1[2,],m1[1,])
-mk <- cbind(m1,m2)
-df <- data.frame(t(mk))
-p3<-pties
-p1<-p2<-(1-pties)/2
-df[,3]<-sample(c("W","L", "T"), prob=c(p1,p2,p3), nrow(df), replace=T)
-colnames(df)<-c("id1", "id2", "result")
-
-if (type=="nums") {
-  df[,3] <- gsub("W", 1, df[,3])
-  df[,3] <- gsub("L", 2, df[,3])
-  df[,3] <- gsub("T", 0, df[,3])
-  df[,3] <- as.numeric(df[,3])
-}
-
-return(df)
-
-
-
-}
-
-
-else
-
-if (is.even(matchups)==FALSE & is.numeric(matchups)==TRUE) {
-
-matchups1 <- matchups-1
-m1 <- matrix(rep(m, matchups1/2) , nrow=nrow(m))
-m2 <- rbind(m1[2,],m1[1,])
-mk <- cbind(m1,m2,m)
-df <- data.frame(t(mk))
-p3<-pties
-p1<-p2<-(1-pties)/2
-df[,3]<-sample(c("W","L", "T"), prob=c(p1,p2,p3), nrow(df), replace=T)
-colnames(df)<-c("id1", "id2", "result")
-
-if (type=="nums") {
-  df[,3] <- gsub("W", 1, df[,3])
-  df[,3] <- gsub("L", 2, df[,3])
-  df[,3] <- gsub("T", 0, df[,3])
-  df[,3] <- as.numeric(df[,3])
-}
-
-
-return(df)
-}
-
-
-else
-
-  if (matchups=="random" & is.numeric(matchups)==FALSE) {
-
-    df <- data.frame(matrix(replicate(n, sample(N,2)), ncol=2))
+    m1 <- matrix(rep(m, matchups/2) , nrow=nrow(m))
+    m2 <- rbind(m1[2,],m1[1,])
+    mk <- cbind(m1,m2)
+    df <- data.frame(t(mk))
     p3<-pties
     p1<-p2<-(1-pties)/2
     df[,3]<-sample(c("W","L", "T"), prob=c(p1,p2,p3), nrow(df), replace=T)
     colnames(df)<-c("id1", "id2", "result")
-
 
     if (type=="nums") {
       df[,3] <- gsub("W", 1, df[,3])
@@ -113,6 +62,54 @@ else
   }
 
 
+  else
 
+    if (is.even(matchups)==FALSE & is.numeric(matchups)==TRUE) {
+
+      matchups1 <- matchups-1
+      m1 <- matrix(rep(m, matchups1/2) , nrow=nrow(m))
+      m2 <- rbind(m1[2,],m1[1,])
+      mk <- cbind(m1,m2,m)
+      df <- data.frame(t(mk))
+      p3<-pties
+      p1<-p2<-(1-pties)/2
+      df[,3]<-sample(c("W","L", "T"), prob=c(p1,p2,p3), nrow(df), replace=T)
+      colnames(df)<-c("id1", "id2", "result")
+
+      if (type=="nums") {
+        df[,3] <- gsub("W", 1, df[,3])
+        df[,3] <- gsub("L", 2, df[,3])
+        df[,3] <- gsub("T", 0, df[,3])
+        df[,3] <- as.numeric(df[,3])
+      }
+
+
+      return(df)
+    }
+
+
+  else
+
+    if (matchups=="random" & is.numeric(matchups)==FALSE) {
+
+      df <- data.frame(matrix(replicate(n, sample(N,2)), ncol=2))
+      p3<-pties
+      p1<-p2<-(1-pties)/2
+      df[,3]<-sample(c("W","L", "T"), prob=c(p1,p2,p3), nrow(df), replace=T)
+      colnames(df)<-c("id1", "id2", "result")
+
+
+      if (type=="nums") {
+        df[,3] <- gsub("W", 1, df[,3])
+        df[,3] <- gsub("L", 2, df[,3])
+        df[,3] <- gsub("T", 0, df[,3])
+        df[,3] <- as.numeric(df[,3])
+      }
+
+      return(df)
+
+
+
+    }
 
 }

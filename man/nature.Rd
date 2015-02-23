@@ -11,6 +11,6 @@ nature(M)
 \description{
 nature' is used to offer the initial sequence depends on the porpotion of dominance
 
-'nature' is used to offer the initial sequence depends on the porpotion of dominance
+nature' is used to offer the initial sequence depends on the porpotion of dominance
 }
 

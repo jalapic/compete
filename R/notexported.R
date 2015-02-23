@@ -27,7 +27,14 @@ m2
 
 
 
-#' This function is used to calculate the I and SI given the dominance matrix
+####
+#THE FOLLOWING ARE ALL REQUIRED FUNCTION FOR 'fun_1998',please load them first
+###
+
+
+##
+#This function is used to calculate the I and SI given the dominance matrix
+##
 funisi<-function(M){
   n=ncol(M)
   result=rep(0,2)
@@ -46,8 +53,11 @@ funisi<-function(M){
 }
 
 
-#' This function is to modify the dominance matrix when ith individual and
-#' jth individual exchange their positions.
+
+###
+#This function is to modify the dominance matrix when ith individual and
+#jth individual exchange their positions.
+###
 swap<-function(M,i,j){
   result=M
   k=result[i,];result[i,]=result[j,];result[j,]=k
@@ -55,8 +65,9 @@ swap<-function(M,i,j){
   return(result)
 }
 
-
-#' 'nature' is used to offer the initial sequence depends on the porpotion of dominance
+###
+#'nature' is used to offer the initial sequence depends on the porpotion of dominance
+###
 nature<-function(M){
   n=ncol(M)
   index=c(1:n)
@@ -82,8 +93,9 @@ nature<-function(M){
   return(sequence)
 }
 
-
+####
 #'matrix_change' is used to modify the dominance matrix according to the give sequence
+###
 matrix_change<-function(M,sequence){
   n=ncol(M)
   new_matrix<-NULL
