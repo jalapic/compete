@@ -9,7 +9,9 @@ randomtourney(n, matchups = 2, pties = 0, type = "char")
 \arguments{
 \item{n}{Number of individuals in tournament}
 
-\item{matchups}{Number of times individuals compete in tournament}
+\item{matchups}{Number of times individuals compete in tournament. Can
+be a numeric input, or, if \strong{\code{matchups}="random"} interactions
+are random}
 
 \item{pties}{Probability of each individual matchup ending in a tie.
 Default is 0, i.e. no ties.  Needs to be a number between 0 and 1.}
