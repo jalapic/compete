@@ -4,7 +4,7 @@
 \alias{randomtourney}
 \title{Generates a randomized tournament with random outcomes}
 \usage{
-randomtourney(n, matchups = 2, pties = 0, type = "char")
+randomtourney(n, matchups = 2, pties = 0, ints = 100, type = "char")
 }
 \arguments{
 \item{n}{Number of individuals in tournament}
@@ -15,6 +15,9 @@ are random}
 
 \item{pties}{Probability of each individual matchup ending in a tie.
 Default is 0, i.e. no ties.  Needs to be a number between 0 and 1.}
+
+\item{ints}{The number of interactions in the tournament if matchups
+are set to random.}
 
 \item{type}{Whether to return results as W/L characters or 1/2 numbers.
 \strong{\code{type}="char"} is the default, \strong{\code{type}="nums"}
