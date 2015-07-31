@@ -10,6 +10,7 @@ email:  jc3181  AT columbia DOT edu
 Please note:  this project is still very much in the development phase.  More functions and capabilites are forthcoming very shortly.
 
 
+
 -----
 ##### Installation
 ```
@@ -31,3 +32,11 @@ This image briefly summarizes the data types used in the `compete` package and t
 -----
 
 
+#### Published papers
+
+This package was used in the following papers:
+
+So, N. et al. 2015, A Social Network Approach Reveals Associations between Mouse Social Dominance and Brain Gene Expression,  ![PLOS ONE](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0134509)
+
+<br>
+<br>
