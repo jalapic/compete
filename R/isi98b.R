@@ -139,7 +139,7 @@ isi98b=function(m,nTries=100)
         temp=rank[swap.from]
         rank=rank[-swap.from]
         if(swap.to==1) rank=c(temp,rank)
-        if(swap.to==n) mrank=c(rank,temp)
+        if(swap.to==n) rank=c(rank,temp)
         if(swap.to!=1&swap.to!=n) rank=c(rank[1:(swap.to-1)],temp,rank[swap.to:(n-1)])
         m=matrix(m,n,n)
         # BEST SWAP ENDS
