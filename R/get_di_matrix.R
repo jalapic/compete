@@ -40,12 +40,13 @@
 #' get_di_matrix(bonobos)
 #' get_di_matrix(mouse)
 #' @section References:
-#' Appleby, Shizuka website
-#' @section Further details:
-#' fill this information in when have time.
+#' Appleby, M. C. 1983. The probability of linearity in hierarchies.
+#' Animal Behaviour, 31, 600-608.
 #' @export
 
 get_di_matrix <- function(m, type="wl"){
+
+  mtxbinom<-mx<-m1<-m2<-m3<-NULL
 
 if(type=="wl") {
 m <- as.matrix(m)

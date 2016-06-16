@@ -5,10 +5,10 @@
 #' Alternative is \code{ties="keep"}
 #' @return A win-loss matrix
 #' @examples
-#' get_wl_matrix(randomtourney(8))
-#' get_wl_matrix(randomtourney(15,pties=.15))
-#' get_wl_matrix(randomtourney(15,pties=.15),ties="keep")
-#' get_wl_matrix(matrix(c(1,3,5,3,2,1,6,3,2,4,2,3,4,4),ncol=2))
+#' wlmat2df(randomtourney(8))
+#' wlmat2df(randomtourney(15,pties=.15))
+#' wlmat2df(randomtourney(15,pties=.15),ties="keep")
+#' wlmat2df(matrix(c(1,3,5,3,2,1,6,3,2,4,2,3,4,4),ncol=2))
 #' @section Further details:
 #' Input dataframes or matrices with only 2 columns are
 #' considered to be winners in column 1 and losers in column 2.
@@ -19,7 +19,7 @@
 #' See \code{\link{get_wl_df}}: for further info.
 #' @export
 
-get_wl_matrix <- function(df, ties="remove"){
+wlmat2df <- function(df, ties="remove"){
 
   mylevs = unique(c(as.character(df[,1]),as.character(df[,2])))
 

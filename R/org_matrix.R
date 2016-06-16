@@ -10,10 +10,7 @@
 #' @return The same matrix \code{m} with reordered rows/columns
 #' @examples
 #' org_matrix(bonobos)
-#' @section Further details:
-#' An unknown relationship is defined as one whereby M(i,j)==M(j,i)==0 .
-#' The zeros in each cell of dyads that have this property may be
-#' referred to as structural zeros.
+#' org_matrix(mouse, method="wins")
 #' @export
 
 
