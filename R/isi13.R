@@ -1,22 +1,35 @@
-#' Compute best ranked matrixed besed on I&SI method 2013
+#' Compute best ranked matrixed based on new I&SI method
 #'
-#' @param Mk A competition results or win-loss matrix
+#' @param m A win-loss matrix
 #' @param p A vector of probabilities for each of 4 methods
 #' @param a_max Number of tries
 #' @param nTries Number of iterations
 #' @param p2 probability for last method
 #' @return A computed ranked matrix best_matrix best_ranking I and SI
 #' @examples
-#' isi98(mouse)
+#' isi13(people)
 #' @section Further details:
-#' Add more detailed description.
-#' See \code{\link{isi98}}: for further info.
+#' Code based on algorithm described by Schmid & de Vries 2013,
+#' Finding a dominance order most consistent with a linear hierarchy:
+#' An improved algorithm for the I&SI method, Animal Behaviour
+#' 86:1097-1105. This first implementation of this algorithm is not
+#' very fast. The number of tries should be very high and/or the function
+#' should be run several times to detect the optimal matrix or matrices.
+#' It may take several runs to find the matrix with the lowest SI,
+#' especially for very large matrices. For small matrices it may be more
+#' efficient to use the older algorithm. See \code{\link{isi98}}:
+#' for further info.
 #' @export
-#'
-isi13<-function(Mk,p=c(1,0,0,0),a_max=50,nTries=30,p2){
-    original1=Mk
-    Mk=transform(Mk)
-    attempt=1
+
+
+
+isi13<-function(m,p=c(1,0,0,0),a_max=50,nTries=30,p2=0.5){
+
+  morig=org_matrix(get_di_matrix(as.matrix(m)),method="wins")
+  Mk=m[colnames(morig),colnames(morig)]
+  original1=Mk
+  Mk=transform(Mk)
+  attempt=1
     n<-ncol(Mk)
     index=nature(Mk)
     M=matrix_change(Mk,index)
@@ -333,215 +346,8 @@ isi13<-function(Mk,p=c(1,0,0,0),a_max=50,nTries=30,p2){
             result_1[[i]]=matrix_change(original1,best[[num[i]]])
             result_2[[i]]=best[[num[i]]]
         }
-    answer=list(best_matrix=result_1,best_order=result_2,I=Imin,SI=SImin)
-    return(answer)
+        result_1x=as.data.frame.matrix(result_1[[1]])
+        rownames(result_1x)<-colnames(result_1x)
+        answer=list("best_matrix"=result_1x,"best_order"=colnames(result_1x),"I"=Imin,"SI"=SImin)
+        return(answer)
 }
-
-####
-#THE FOLLOWING ARE ALL REQUIRED FUNCTION FOR 'fun_2013',please load them first
-###
-
-
-##
-#This function is used to calculate the I and SI given the dominance matrix
-##
-fun<-function(M){
-    n=ncol(M)
-    result=rep(0,2)
-    k=(M-t(M))/2
-    k[upper.tri(k)]=0
-    result[1] = 0
-    a=length(which(k>0))
-    y=which(k>0)%%n
-    x=(which(k>0)-1)%/%n+1
-    y[y==0]=y[y==0]+n
-    if (a>0){
-        result[1]=a
-        result[2]=sum(y-x)
-    }
-return(result)
-}
-
-###
-#This function is to modify the dominance matrix when ith individual and
-#jth individual exchange their positions.
-###
-swap<-function(M,i,j){
-    result=M
-    k=result[i,];result[i,]=result[j,];result[j,]=k
-    k=result[,i];result[,i]=result[,j];result[,j]=k
-    return(result)
-}
-
-###
-#'nature' is used to offer the initial sequence depends on the porpotion of dominance
-###
-nature<-function(M){
-    n=ncol(M)
-    index=c(1:n)
-    D<-rep(0,n)
-    S<-rep(0,n)
-    for (i in 1:n){
-        fast<-M-t(M)
-        D[i]=D[i]+length(which(sign(fast[i,])==1))
-        S[i]=S[i]+length(which(sign(fast[i,])==-1))
-    }
-    result=D/(D+S)
-    save=sort(result,decreasing=TRUE,index.return=TRUE)
-    sequence=save$ix
-    result=save$x
-    Dom_sub=D-S
-    for (i in 1:(n-1)){
-        if (result[i]==result[i+1]){
-            if (Dom_sub[i]<Dom_sub[i+1]){
-                mid<-sequence[i];sequence[i]=sequence[i+1];sequence[i+1]=mid
-            }
-        }
-    }
-    return(sequence)
-}
-
-####
-#'matrix_change' is used to modify the dominance matrix according to the give sequence
-###
-matrix_change<-function(M,sequence){
-    n=ncol(M)
-    new_matrix<-NULL
-    for(i in 1:n){
-        temp<-M[sequence[i],]
-        temp<-temp[sequence]
-        new_matrix<-rbind(new_matrix,temp)
-    }
-    return(new_matrix)
-}
-
-####
-#'transform' function is the function to transform the original matrix to the fictitious matrix
-#M is the original matrix
-####
-transform<-function(M){
-    n=ncol(M)
-    for (i in 1:(n-1)){
-        for (j in (i+1):n){
-            if (M[j,i]>M[i,j]){
-                M[j,i]=1;M[i,j]=-1
-            }
-            else if((M[j,i]>0)&(M[i,j]==M[j,i])){
-                M[i,j]=M[j,i]=.5
-            }
-            else if(M[j,i]<M[i,j]){
-            M[j,i]=-1;M[i,j]=1
-            }
-        }
-    }
-return(M)
-}
-
-####
-#'shift' function is used to put the rank ith individual at the jth position
-#M is the matrix
-####
-shift<-function(M,i,j){
-    n=ncol(M)
-    kk=M[,-i]
-    if (j==1){
-        left<-rep(0,n)
-    }
-    else{
-        left<-cbind(rep(0,n),kk[,1:(j-1)])
-    }
-    if (j==n){
-        right<-rep(0,n)}else{
-        right<-cbind(kk[,j:(n-1)],rep(0,n))
-    }
-    matrix1=cbind(left,M[,i],right)
-    matrix1=matrix1[,-c(1,n+2)]
-    kk=matrix1[-i,]
-    if (j==1){
-        top<-rep(0,n)}else{
-        top<-rbind(rep(0,n),kk[1:(j-1),])
-    }
-    if (j==n){
-        down<-rep(0,n)
-    }
-    else{
-        down<-rbind(kk[j:(n-1),],rep(0,n))
-    }
-    matrix2<-rbind(top,matrix1[i,],down)
-    matrix2<-matrix2[-c(1,n+2),]
-    return(matrix2)
-}
-
-####
-#'shift_index' is a function change the rank
-####
-shift_index<-function(index,i,j){
-    n<-length(index)
-    memory<-index[-i]
-    if (j==1){
-        left=NULL
-    }
-    else{
-        left<-memory[1:(j-1)]
-    }
-    if(j==n){
-        right=NULL}
-    else{
-        right<-memory[j:(n-1)]
-    }
-    new<-c(left,index[i],right)
-    return(new)
-}
-
-
-delta_si=function(Matrix,i,j){
-    n=ncol(Matrix)
-
-    if (i==j){
-        result=0
-    }
-    else if (i<j){
-if (i==1){
-        u=x=0}
-         else{
-        u=sum((Matrix[1:(i-1),(i+1):j]-1)/-2)
-        x=sum((Matrix[1:(i-1),i]-1)/-2)
-             }
-if (j==n){
-w=v=0}
-else{
- w=sum(floor((Matrix[(i+1):j,(j+1):n]-1)/-2))
- v=sum(floor((Matrix[i,(j+1):n]-1)/-2))
-}
-   z=j-i
-        zhishu<-Matrix[i,(i+1):j]
-        a=which(zhishu==1)
-        yi=sum(j-i-a+1)
-        b=which(zhishu==-1)
-        ye=sum(b)
-        result=yi-ye+w-u+z*(x-v)
-    }
-    else{
-        if (i==n){
-        u=x=0}
-        else{
-        u=sum(floor((Matrix[j:(i-1),(i+1):n]-1)/-2))
-        x=sum(floor((Matrix[i,(i+1):n]-1)/-2))
-        }
-     if (j==1){
-     w=v=0}
-     else{
-     w=sum(floor((Matrix[1:(j-1),j:(i-1)]-1)/-2) )
-     v=sum(floor((Matrix[1:(j-1),i]-1)/-2))
-     }
-        z=i-j
-        zhishu<-Matrix[j:(i-1),i]
-        a=which(zhishu==1)
-        yi=sum(a)
-        b=which(zhishu==-1)
-        ye=sum(i-j-b+1)
-        result=yi-ye+w-u+z*(x-v)
-    }
-return(result)
-}
-

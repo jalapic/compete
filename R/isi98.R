@@ -1,16 +1,23 @@
-#' Compute best ranked matrixed besed on I&SI method 1998
+#' Compute best ranked matrixed based on original I&SI method
 #'
-#' @param M A competition results or win-loss matrix
-#' @param nTries Number of iterations
+#' @param M A win-loss matrix
+#' @param nTries Number of tries to find best order
 #' @return A computed ranked matrix best_matrix best_ranking I and SI
 #' @examples
-#' isi98(mouse)
+#' isi98(mouse,nTries=100)
 #' @section Further details:
-#' Add more detailed description.
-#' See \code{\link{isi98}}: for further info.
+#'
+#' Code based on algorithm described by de Vries, H. 1998. Finding a
+#' dominance order most consistent with a linear hierarchy:
+#' a new procedure and review. Animal Behaviour, 55, 827-843.
+#' The number of iterations should be very high and/or the function
+#' should be run several times to detect the optimal matrix or matrices.
+#'  It may take several runs to find the matrix with the lowest SI,
+#'  especially for very large matrices.
+#' See \code{\link{isi13}}: for further info.
 #' @export
 
-isi98<-function(M,nTries){
+isi98<-function(M,nTries=1000){
   n<-ncol(M)
   l=funisi(M)
   Imin=l[1];SImin=l[2]
@@ -81,7 +88,9 @@ isi98<-function(M,nTries){
     result_1[[i]]=matrix_change(M,best[[num[i]]])
     result_2[[i]]=best[[num[i]]]
   }
-  answer=list(best_matrix=result_1,best_order=result_2,I=Imin,SI=SImin)
+
+  result_1x=as.data.frame.matrix(result_1[[1]])
+
+  answer=list("best_matrix"=result_1x,"best_order"=colnames(result_1x),"I"=Imin,"SI"=SImin)
   return(answer)
 }
-
