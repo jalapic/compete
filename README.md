@@ -35,15 +35,15 @@ get_wl_matrix - turns edgelist into Win-Loss Sociomatrix
 get_di_matrix - turns Win-Loss Sociomatrix into Binary Win-Loss Sociomatrix
 org_matrix - organize Sociomatrix
 
-dci - Directional Consistency of Sociomatrix
-phi - Phi Skew-Symmetry Coefficient of Sociomatrix
-dc_test - Randomization Test of Directional Consistency and Phi Skew-Symmetry
-devries - Modified Landau's h' of Sociomatrix and randomization test
-ttri - Triangle Transitivity of Sociomatrix
-ttri_test - Randomization Test of Triangle Transitivity of Sociomatrix
-isi98 - I&SI ranking of Sociomatrix (see documentation)
-isi13 - I&SI ranking of Sociomatrix using updated algorithm (see documentation)
-ds - get David's Scores of Sociomatrix
+- dci - Directional Consistency of Sociomatrix
+- phi - Phi Skew-Symmetry Coefficient of Sociomatrix
+- dc_test - Randomization Test of Directional Consistency and Phi Skew-Symmetry
+- devries - Modified Landau's h' of Sociomatrix and randomization test
+- ttri - Triangle Transitivity of Sociomatrix
+- ttri_test - Randomization Test of Triangle Transitivity of Sociomatrix
+- isi98 - I&SI ranking of Sociomatrix (see documentation)
+- isi13 - I&SI ranking of Sociomatrix using updated algorithm (see documentation)
+- ds - get David's Scores of Sociomatrix
 
 
 
