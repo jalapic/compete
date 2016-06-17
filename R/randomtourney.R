@@ -25,6 +25,7 @@
 #' refers to \code{id1} beating \code{id2}, and a "L" refers to
 #' \code{id2} beating \code{id1}. Individuals are referred to by a
 #' random assignment of two conjoined letters.
+#' @importFrom utils "combn"
 #' @export
 
 
@@ -33,9 +34,9 @@ randomtourney <- function(n, matchups=2, pties=0, ints=100, type="char"){
 
   if (n>325) { stop("randomtourney allows a maximum of 325 individuals")}
 
-  indivs <- apply(combn(LETTERS[1:26],2), 2, function(x) paste(x[1],x[2],sep=""))
+  indivs <- apply(utils::combn(LETTERS[1:26],2), 2, function(x) paste(x[1],x[2],sep=""))
   N <- sample(indivs, n)
-  m<-combn(N,2)
+  m<-utils::combn(N,2)
 
   if (is.numeric(matchups)==TRUE) {
 

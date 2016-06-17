@@ -18,9 +18,13 @@
 #' Note that plot will only be shown if \strong{\code{history}=F}
 #' @importFrom igraph "graph.adjacency"
 #' @importFrom igraph "degree"
+#' @importFrom stats "runif"
+#' @importFrom graphics "hist"
+#' @importFrom graphics "abline"
 #' @export
 
 devries <- function(m, Nperms=10000, history=FALSE, plot=FALSE) {
+
   diag(m)<-0
   m <- as.matrix(m)
   total <- m + t(m)
@@ -39,11 +43,11 @@ devries <- function(m, Nperms=10000, history=FALSE, plot=FALSE) {
   fixedvals <- fixedels * (0.5 * (((m > t(m)) + 0.0) - ((t(m) > m) + 0.0) + 1))
 
   for (k in 1:Nperms){
-    randmat <- matrix(runif(NN), ncol=N)
+    randmat <- matrix(stats::runif(NN), ncol=N)
     newmat <- fixedvals + randomels * ((randmat > t(randmat)) + 0.0)
     V <- rowSums(newmat)
     h0[k] <- hF1 * sum((V - hF2) ^ 2)
-    randmat <- matrix(runif(NN), ncol=N)
+    randmat <- matrix(stats::runif(NN), ncol=N)
     nm <- (randmat > t(randmat)) + 0.0
     Vr <- rowSums(nm)
     hr[k] <- hF1 * sum((Vr - hF2) ^ 2)
@@ -58,15 +62,15 @@ devries <- function(m, Nperms=10000, history=FALSE, plot=FALSE) {
 
   if(history==F & plot==T) {
     cat('h-modified =', hmod,"\n", 'p-value=', p)
-    hist(hr,xlim=c(0,1),xlab="Landau h values from simulation", main = "Observed h' vs. Randomized Distribution")
-    abline(v=hmod,lty=3,lwd=1.5,col="red")
+    graphics::hist(hr,xlim=c(0,1),xlab="Landau h values from simulation", main = "Observed h' vs. Randomized Distribution")
+    graphics::abline(v=hmod,lty=3,lwd=1.5,col="red")
   }
 
   if(history==T & plot==T) {
     warning("Plot only shown when history=F")
     cat('h-modified =', hmod,"\n", 'p-value=', p)
-    hist(hr,xlim=c(0,1),xlab="Landau h values from simulation", main = "Observed h' vs. Randomized Distribution")
-    abline(v=hmod,lty=3,lwd=1.5,col="red")
+    graphics::hist(hr,xlim=c(0,1),xlab="Landau h values from simulation", main = "Observed h' vs. Randomized Distribution")
+    graphics::abline(v=hmod,lty=3,lwd=1.5,col="red")
   }
 }
 

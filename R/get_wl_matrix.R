@@ -17,6 +17,7 @@
 #' subject and column 2 subject. The result can be in
 #' the "W/L/T" format or "1/0/0.5" format.
 #' See \code{\link{get_wl_df}}: for further info.
+#' @importFrom stats "xtabs"
 #' @export
 
 get_wl_matrix <- function(df, ties="remove"){
@@ -27,7 +28,7 @@ get_wl_matrix <- function(df, ties="remove"){
     df[,1] <- factor(df[,1], levels=mylevs)
     df[,2] <- factor(df[,2], levels=mylevs)
     df$result<-1
-    m1 = xtabs(result ~ ., data = df)
+    m1 = stats::xtabs(result ~ ., data = df)
     m1 <- m1[order(rownames(m1)), order(colnames(m1))]
     return(m1)
 
@@ -37,7 +38,7 @@ get_wl_matrix <- function(df, ties="remove"){
       df <- get_wl_df(df,ties="remove")
       df[,1] <- factor(df[,1], levels=mylevs)
       df[,2] <- factor(df[,2], levels=mylevs)
-      m1 = xtabs(result ~ ., data = df)
+      m1 = stats::xtabs(result ~ ., data = df)
       m1 <- m1[order(rownames(m1)), order(colnames(m1))]
       return(m1)
     }
@@ -50,11 +51,11 @@ get_wl_matrix <- function(df, ties="remove"){
       dfWL <-df[(df[,3]==1),]
       dfWL[,1] <- factor(dfWL[,1], levels=mylevs)
       dfWL[,2] <- factor(dfWL[,2], levels=mylevs)
-      m1 = xtabs(result ~ ., data = dfWL)
+      m1 = stats::xtabs(result ~ ., data = dfWL)
       m1 <- m1[order(rownames(m1)), order(colnames(m1))]
       #giving 0.5 for a win for ties
       dfT[ , c("winner", "loser")] <- lapply(dfT[ , c("winner", "loser")], function(x) factor(x, levels = mylevs))
-      m2=xtabs(result ~ ., data = dfT)
+      m2=stats::xtabs(result ~ ., data = dfT)
       m2 <- m2[order(rownames(m2)), order(colnames(m2))]
       mm <- m1 + m2 + t(m2)
 

@@ -51,7 +51,6 @@ identifying other potentially better fits. For solutions with identical
  I and SI, better fits have a higher value of rs.
 }
 \examples{
-isi13(people)
-isi13(people, random=TRUE)
+isi13(people,nTries=10)
 }
 

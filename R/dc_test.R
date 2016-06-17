@@ -19,6 +19,8 @@
 #' directional consistency and skew-symmetry statistics, Behav Res Methods.
 #' @section Further details:
 #' This is a one-sided significance test i.e. that observed values are higher than expected
+#' @importFrom stats "rbinom"
+#' @importFrom stats "var"
 #' @export
 
 
@@ -52,7 +54,7 @@ dc_test=function(m,N=20,ntimes=10000){
   p=matrix(.5,nrow(m),ncol(m))
 
   if (length(unique(colSums(p)))==1){
-    number=rbinom(n*(n-1)/2*ntimes,N,p[1,2])
+    number=stats::rbinom(n*(n-1)/2*ntimes,N,p[1,2])
     dim(number)=c(ntimes,n*(n-1)/2)
     for (i in 1:ntimes){
       result[,,i][upper.tri(result[,,i])]=number[i,]
@@ -62,7 +64,7 @@ dc_test=function(m,N=20,ntimes=10000){
       for (i in 1:(n-1)){
         for (j in (i+1):n){
           for (k in 1:ntimes){
-            number=rbinom(ntimes,N,p[i,j])
+            number=stats::rbinom(ntimes,N,p[i,j])
             result[i,j,k]=number[k]
             result[j,i,k]=N-number[k]
           }
@@ -81,7 +83,7 @@ dc_test=function(m,N=20,ntimes=10000){
     if (phi.pvalue==0) phi.pvalue=1/ntimes
     if (DC.pvalue==0) DC.pvalue=1/ntimes
     mean_phi=mean(phi);mean_DC=mean(DC)
-    variance_phi=var(phi);variance_DC=var(DC)
+    variance_phi=stats::var(phi);variance_DC=stats::var(DC)
     p.value=list(DC.pvalue=DC.pvalue,phi.pvalue=phi.pvalue,mean_phi=mean_phi,mean_DC=mean_DC
                  , variance_phi=variance_phi,variance_DC=variance_DC,DC=DC_0,phi=phi_0)
     return(p.value)

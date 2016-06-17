@@ -10,8 +10,7 @@
 #' and rs - the Spearman correlation between best order and David's
 #' Scores.
 #' @examples
-#' isi13(people)
-#' isi13(people, random=TRUE)
+#' isi13(people,nTries=10)
 #' @section Further details:
 #' Code based on algorithm described by Schmid & de Vries 2013,
 #' Finding a dominance order most consistent with a linear hierarchy:
@@ -32,6 +31,9 @@
 #' the initial order of individuals in the matrix. This can be helpful in
 #' identifying other potentially better fits. For solutions with identical
 #'  I and SI, better fits have a higher value of rs.
+#' @importFrom stats "cor.test"
+#' @importFrom stats "runif"
+#' @importFrom stats "rmultinom"
 #' @export
 
 
@@ -65,10 +67,10 @@ isi13<-function(m,p=c(1,0,0,0),a_max=50,nTries=30,p2=0.5,random=FALSE){
     while (attempt<a_max){
         t=1
         if (attempt%%2==0){
-        random_p = rmultinom(1,1,p)
+        random_p = stats::rmultinom(1,1,p)
         p1=which(random_p==1)}else{
         p1=0}
-        if (runif(1)<p2) p1=p1+5
+        if (stats::runif(1)<p2) p1=p1+5
         stopIteration1=FALSE;stopIteration2=FALSE
         while (stopIteration1==FALSE){
              count_1=0;count_2=0
@@ -360,7 +362,7 @@ isi13<-function(m,p=c(1,0,0,0),a_max=50,nTries=30,p2=0.5,random=FALSE){
     best=unique(best)
     correlation=rep(0,length(best))
     for (k in 1:length(best)){
-        correlation[k]=cor.test(nature(original1),best[[k]])$p.value
+        correlation[k]=stats::cor.test(nature(original1),best[[k]])$p.value
     }
         num<-which(correlation==min(correlation))
         result_1=list()
@@ -375,7 +377,7 @@ isi13<-function(m,p=c(1,0,0,0),a_max=50,nTries=30,p2=0.5,random=FALSE){
 
         best=colnames(result_1x)
         x1=ds(original1)
-        rs=cor.test(1:length(x1),rank(-x1[best]),method = "s")[[4]][[1]]
+        rs=stats::cor.test(1:length(x1),rank(-x1[best]),method = "s")[[4]][[1]]
 
 
         answer=list("best_matrix"=result_1x,"best_order"=colnames(result_1x),"I"=Imin,"SI"=SImin, 'rs'=rs)

@@ -11,8 +11,11 @@ Depends:
     R (>= 3.1.0)
 License: GPL-3
 LazyData: true
-Imports:  igraph,
-           sna
+Imports:  graphics,
+           igraph,
+           sna,
+           stats,
+           utils
 URL: https://github.com/jalapic/compete
 BugReports: https://github.com/jalapic/compete
 RoxygenNote: 5.0.1

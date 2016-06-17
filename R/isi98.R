@@ -25,6 +25,7 @@
 #' matrix. For solutions with identical I and SI, better fits
 #' have a higher value of rs.
 #' See \code{\link{isi13}}: for further info.
+#' @importFrom stats "cor.test"
 #' @export
 
 isi98=function(m,nTries=100,random=FALSE)
@@ -229,7 +230,7 @@ isi98=function(m,nTries=100,random=FALSE)
   # cat("\n")
 
   x1=ds(data)
-  rs=cor.test(1:length(x1),rank(-x1[best]),method = "s")[[4]][[1]]
+  rs=stats::cor.test(1:length(x1),rank(-x1[best]),method = "s")[[4]][[1]]
 
   return(list('best_matrix'=newm, 'best_order'=best, 'I'=Imin, "SI"=SImin, 'rs'=rs))
 
