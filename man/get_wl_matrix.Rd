@@ -32,6 +32,6 @@ See \code{\link{get_wl_df}}: for further info.
 get_wl_matrix(randomtourney(8))
 get_wl_matrix(randomtourney(15,pties=.15))
 get_wl_matrix(randomtourney(15,pties=.15),ties="keep")
-get_wl_matrix(matrix(c(1,3,5,3,2,1,6,3,2,4,2,3,4,4),ncol=2))
+get_wl_matrix(el)
 }
 

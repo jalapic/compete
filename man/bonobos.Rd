@@ -20,5 +20,11 @@ bonobos
 A win-loss sociomatrix with each row being the number of wins
 against individual bonobos in each column.
 }
+\details{
+Reference: Vervaecke, H., de Vries, H. & van Elsacker, L. 2000.
+Dominance and its behavioral measures in a captive group of
+bonobos (Pan paniscus). International Journal of Primatology,
+21, 47-68.
+}
 \keyword{datasets}
 
