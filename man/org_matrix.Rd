@@ -12,9 +12,10 @@ org_matrix(m, method = "alpha")
 \item{method}{The method to be used to reorganize the matrix.
 \code{method="alpha"} is the default and will organize rows/columns based
 on alphanumeric order of rownames/colnames. \code{method="wins"} will
-return a matrix orderd in descending order of summed rows (i.e. total
+return a matrix ordered in descending order of summed rows (i.e. total
 competitive interactions won). If rows have tied number of total wins,
-they will be returned in the order of the inputted matrix.}
+they will be returned in the order of the inputted matrix.
+ \code{method="ds"} Will return a matrix ordered by David's Score.}
 }
 \value{
 The same matrix \code{m} with reordered rows/columns
@@ -25,5 +26,6 @@ Organize rows and columns of a matrix
 \examples{
 org_matrix(bonobos)
 org_matrix(mouse, method="wins")
+org_matrix(people, method="ds")
 }
 

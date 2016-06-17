@@ -1,96 +1,240 @@
 #' Compute best ranked matrixed based on original I&SI method
 #'
-#' @param M A win-loss matrix
+#' @param m A  win-loss matrix
 #' @param nTries Number of tries to find best order
-#' @return A computed ranked matrix best_matrix best_ranking I and SI
+#' @param random Whether to randomize initial matrix order
+#' @return A matrix with best ranking of I and SI plus the
+#' correlation (rs) between found ranking and David's Scores
 #' @examples
-#' isi98(mouse,nTries=100)
+#' isi98(mouse,nTries=50)
+#' isi98(people, random=TRUE)
 #' @section Further details:
-#'
 #' Code based on algorithm described by de Vries, H. 1998. Finding a
 #' dominance order most consistent with a linear hierarchy:
 #' a new procedure and review. Animal Behaviour, 55, 827-843.
+#' The code is written in R and is fairly slow. It will be replaced
+#' by a function written in C++ soon.
 #' The number of iterations should be very high and/or the function
 #' should be run several times to detect the optimal matrix or matrices.
-#'  It may take several runs to find the matrix with the lowest SI,
-#'  especially for very large matrices.
+#' It may take several runs to find a matrix with the lowest SI,
+#' especially for very large matrices. The function will stop once it
+#' finds a matrix with an I or SI that it can no longer improve upon.
+#' The order of this matrix will be dependent upon the input name order
+#' of the original matrix. To find further solutions, try using
+#' \code{random==TRUE} to shuffle the name order of the initial
+#' matrix. For solutions with identical I and SI, better fits
+#' have a higher value of rs.
 #' See \code{\link{isi13}}: for further info.
 #' @export
 
-isi98<-function(M,nTries=1000){
-  n<-ncol(M)
-  l=funisi(M)
-  Imin=l[1];SImin=l[2]
-  best=c(1:n)
-  nTries=nTries%/%n
-  for (jjj in 1:n){
-    stopIteration1=FALSE;stopIteration2=FALSE
-    index=sample(n,n);t=0
-    matrix0=matrix_change(M,index); matrix1 = (matrix0-t(matrix0))/2
-    while (stopIteration1==FALSE){
-      while (stopIteration2==FALSE){
-        stopIteration2<-TRUE
+isi98=function(m,nTries=100,random=FALSE)
+{
 
-        for (i in 1:(n-1)){
-          for (j in (i+1):n){
-            if (matrix1[i,j]<0){
-              sum1=sum(sign(matrix1[j,i:(j-1)]))
-              if (sum1>0){
-                matrix1=swap(matrix1,i,j)
-                change=index[i];index[i]=index[j];index[j]=change
-                stopIteration2=FALSE
-              }
-            }
-          }
+  if(random==FALSE){   data <- org_matrix(as.matrix(m),method='ds') }
+  if(random==TRUE){
+    newnames=sample(colnames(m))
+    data <- as.matrix(m)[newnames,newnames]
+    }
+
+#  cat("\nI&SI IMPROVED ALGORITHM FOR DOMINANCE ORDER\n")
+
+  # INITIAL VALUES
+  n=as.numeric(dim(data)[1])
+  m=matrix(0,n,n)
+  siind=matrix(0,n,n)
+  I=0
+  SI=0
+  for (j in 2:n)
+  {
+    for (i in 1:(j-1))
+    {
+      siind[j,i]=j-i
+      siind[i,j]=j-i
+      if (data[j,i]==0&data[i,j]==0)
+      {
+        m[j,i]=0
+        m[i,j]=0
+      }else{
+        if (data[j,i]>data[i,j])
+        {
+          m[j,i]=1
+          m[i,j]=-1
         }
-      }
-      l<-funisi(matrix1)
-      I=l[1];SI=l[2]
-      if ((I<Imin)|((I==Imin)&(SI<SImin))){
-        best=list()
-        best[[1]]=index
-        Imin=I
-        SImin=SI
-        stopIteration1=FALSE
-      }
-      else if((I==Imin)&(SI==SImin)){
-        t=t+1
-        best[[length(best)+1]]=index
-      }
-      else{
-        t=t+1
-      }
-      if ((SImin>0)&(t<nTries)){
-        for(j in 2:n){
-          kk=matrix1[j,1:(j-1)]
-          if (max(kk>0)){
-            rand=sample((j-1),1)
-            matrix1=swap(matrix1,rand,j)
-            change=index[rand];index[rand]=index[j];index[j]=change
-            stopIteration1=FALSE
-          }
+        if (data[j,i]<data[i,j])
+        {
+          m[j,i]=-1
+          m[i,j]=1
         }
-      }
-      else{
-        stopIteration1=TRUE
+        if (data[j,i]==data[i,j])
+        {
+          m[j,i]=0.5
+          m[i,j]=0.5
+        }
       }
     }
   }
-  best=unique(best)
-  correlation=rep(0,length(best))
-  for (k in 1:length(best)){
-    correlation[k]=cor.test(nature(M),best[[k]])$p.value
-  }
-  num<-which(correlation==min(correlation))
-  result_1=list()
-  result_2=list()
-  for (i in 1:length(num)){
-    result_1[[i]]=matrix_change(M,best[[num[i]]])
-    result_2[[i]]=best[[num[i]]]
-  }
+  I=sum(lower.tri(m)*m==1)
+  SI=sum((lower.tri(m)*m==1)*siind)
+  Imin=I
+  SImin=SI
+  rank=colnames(data)
+  best=rank
+  t=0
+  cat("\nINITIAL RANK: \n")
+  print(rank)
+  cat(paste("I = ",I,"\n",sep=""))
+  cat(paste("SI = ",SI,"\n",sep=""))
 
-  result_1x=as.data.frame.matrix(result_1[[1]])
 
-  answer=list("best_matrix"=result_1x,"best_order"=colnames(result_1x),"I"=Imin,"SI"=SImin)
-  return(answer)
+  # OUTER LOOP STARTS
+  Stop1=F
+  while (!Stop1)
+  {
+
+    # INNER LOOP STARTS
+    stop2=F
+    while (!stop2)
+    {
+
+      # I AND SI CALCULATION WITHOUT SWAP STARTS
+      dI=matrix(0,n,n)
+      dSI=matrix(0,n,n)
+      for (i in 1:n)
+      {
+        for (j in 1:n)
+        {
+          if (j!=i)
+          {
+            # DELTA VALUES OF SWAPING FROM I TO J
+            small=(1:min(i,j))[-min(i,j)]
+            large=(max(i,j):n)[-1]
+            z=abs(i-j)
+            if(i!=1) x=sum(m[i,small]==1) else x=0
+            if(j!=n) v=sum(m[large,i]==1) else v=0
+            if(i!=1) u=sum(m[i:j,small]==1)-x else u=0
+            if(j!=n) w=sum(m[large,i:j]==1)-v else w=0
+            y=sum(m[i,i:j])-sum(m[i:j,i])
+            i.down=((m==1)*(z+1-siind))[i,i:j]
+            c.down=((m==-1)*siind)[i,i:j]
+            i.up=((m==1)*siind)[i,i:j]
+            c.up=((m==-1)*(z+1-siind))[i,i:j]
+            yi=(i<j)*sum(i.down)+(i>j)*sum(i.up)
+            ye=(i<j)*sum(c.down)+(i>j)*sum(c.up)
+            dI[i,j]=sign(j-i)*y/2
+            dSI[i,j]=sign(j-i)*(w-u+z*(x-v)+(yi-ye))
+          }
+        }
+      }
+      # I AND SI CALCULATION WITHOUT SWAP ENDS
+
+      stop2=(sum(dI<0)==0&sum((dI==0)*dSI<0)==0)
+      if (!stop2)
+      {
+        # BEST SWAP STARTS
+        I.SI=(dI==min(dI))*(dSI-max(dSI)-1)
+        all.swap=which(I.SI==min(I.SI),arr.ind =TRUE)
+        swap.ind=sample(1:dim(all.swap)[1],1)
+        swap.from=all.swap[swap.ind,1]
+        swap.to=all.swap[swap.ind,2]
+        I=I+dI[swap.from,swap.to]
+        SI=SI+dI[swap.from,swap.to]
+        # ROW
+        temp=m[swap.from,]
+        m=m[-swap.from,]
+        if(swap.to==1) m=rbind(temp,m)
+        if(swap.to==n) m=rbind(m,temp)
+        if(swap.to!=1&swap.to!=n) m=rbind(m[1:(swap.to-1),],temp,m[swap.to:(n-1),])
+        # COLUMN
+        temp=m[,swap.from]
+        m=m[,-swap.from]
+        if(swap.to==1) m=cbind(temp,m)
+        if(swap.to==n) m=cbind(m,temp)
+        if(swap.to!=1&swap.to!=n) m=cbind(m[,1:(swap.to-1)],temp,m[,swap.to:(n-1)])
+        # RANK
+        temp=rank[swap.from]
+        rank=rank[-swap.from]
+        if(swap.to==1) rank=c(temp,rank)
+        if(swap.to==n) rank=c(rank,temp)
+        if(swap.to!=1&swap.to!=n) rank=c(rank[1:(swap.to-1)],temp,rank[swap.to:(n-1)])
+        m=matrix(m,n,n)
+        # BEST SWAP ENDS
+      }
+
+    }
+    # INNER LOOP ENDS
+
+
+    # VALUES AFTER SWAP
+    I=sum(lower.tri(m)*m==1)
+    SI=sum((lower.tri(m)*m==1)*siind)
+
+
+    # CHECKING OPTIMAL VALUES STARTS
+    if ((I<Imin)|(I==Imin&SI<SImin))
+    {
+      best=rank
+      Imin=I
+      SImin=SI
+    }else{
+      t=t+1
+      if (SImin>0&t<nTries)
+      {
+        # RANDOM SWAP STARTS
+        for (j in 2:n)
+        {
+          some=0
+          for (i in 1:(j-1))
+          {
+            some=some+(m[j,i]>m[i,j])
+          }
+          if (some>0)
+          {
+            ind=sample(1:(j-1),1)
+            sup=rank[j]
+            inf=rank[ind]
+            rank[ind]=sup
+            rank[j]=inf
+            row.sup=m[j,]
+            row.inf=m[ind,]
+            m[ind,]=row.sup
+            m[j,]=row.inf
+            col.sup=m[,j]
+            col.inf=m[,ind]
+            m[,ind]=col.sup
+            m[,j]=col.inf
+          }
+        }
+        # RANDOM SWAP ENDS
+      }else{
+#        cat("\noptimal rank is found!\n")
+        Stop1=T
+      }
+    }
+    # CHECKING OPTIMAL VALUES ENDS
+
+
+  }
+  # OUTER LOOP ENDS
+
+
+  newm = data[best,best]
+
+# 'best.matrix'=newm,
+
+  # RESULTS
+  # cat("\nBEST RANK: \n")
+  # print(best)
+  # cat(paste("I = ",Imin,"\n",sep=""))
+  # cat(paste("SI = ",SImin,"\n",sep=""))
+  # cat("\n")
+
+  x1=ds(data)
+  rs=cor.test(1:length(x1),rank(-x1[best]),method = "s")[[4]][[1]]
+
+  return(list('best_matrix'=newm, 'best_order'=best, 'I'=Imin, "SI"=SImin, 'rs'=rs))
+
 }
+
+
+
+
