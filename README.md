@@ -29,11 +29,9 @@ Curley, J.P.  2016, compete: Analyzing competitive interaction data: R package v
 
 #### Functions
 
-Data manipulation
-
-get_wl_matrix - turns edgelist into Win-Loss Sociomatrix
-get_di_matrix - turns Win-Loss Sociomatrix into Binary Win-Loss Sociomatrix
-org_matrix - organize Sociomatrix
+- get_wl_matrix - turns edgelist into Win-Loss Sociomatrix
+- get_di_matrix - turns Win-Loss Sociomatrix into Binary Win-Loss Sociomatrix
+- org_matrix - organize Sociomatrix
 
 - dci - Directional Consistency of Sociomatrix
 - phi - Phi Skew-Symmetry Coefficient of Sociomatrix
