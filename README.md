@@ -8,8 +8,6 @@ Analyzing head-to-head competitive interaction data
 ### Maintainer: James P. Curley
 email:  jc3181  AT columbia DOT edu
 
-Please note:  this project is still very much in the development phase.  More functions and capabilites are forthcoming very shortly.
-
 
 
 -----
