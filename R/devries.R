@@ -58,14 +58,14 @@ devries <- function(m, Nperms=10000, history=FALSE, plot=FALSE) {
 
   if(history==F & plot==T) {
     cat('h-modified =', hmod,"\n", 'p-value=', p)
-    hist(hr,xlim=c(0,1),xlab="Landau h values from simulation")
+    hist(hr,xlim=c(0,1),xlab="Landau h values from simulation", main = "Observed h' vs. Randomized Distribution")
     abline(v=hmod,lty=3,lwd=1.5,col="red")
   }
 
   if(history==T & plot==T) {
     warning("Plot only shown when history=F")
     cat('h-modified =', hmod,"\n", 'p-value=', p)
-    hist(hr,xlim=c(0,1),xlab="Landau h values from simulation")
+    hist(hr,xlim=c(0,1),xlab="Landau h values from simulation", main = "Observed h' vs. Randomized Distribution")
     abline(v=hmod,lty=3,lwd=1.5,col="red")
   }
 }
