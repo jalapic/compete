@@ -20,7 +20,7 @@ devtools::install_github('jalapic/compete')
 ##### Citation
 Even though this package is in development, if you do use it in published research please cite it as:
 
-Curley, J.P.  2016, compete: Analyzing competitive interaction data: R package version 0.1
+Curley, J.P.  2016, compete: Analyzing Social Hierarchies: R package version 0.1
 
 
 ------
