@@ -50,6 +50,8 @@ Curley, J.P.  2016, compete: Analyzing Social Hierarchies: R package version 0.1
 
 _This package was used in the following papers:_
 
+[See publication list of Curley Lab here](http://curleylab.psych.columbia.edu/pubs.html) for some examples.
+
 So, N. et al. 2015, A Social Network Approach Reveals Associations between Mouse Social Dominance and Brain Gene Expression,  <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0134509" target="_blank">PLOS ONE</a>
 
 Curley JP, 2016, Temporal Pairwise-Correlation Analysis Provides Empirical Support for Attention Hierarchies in Mice, Biology Letters
@@ -61,7 +63,7 @@ Williamson CM, Franks B & Curley JP, 2016, Mouse Social Network Dynamics and Com
 Arseneau-Robara TJM et al., 2017, Intra- and interindividual differences in the costs and benefits of intergroup aggression in female vervet monkeys, Animal Behaviour 123:129–137.
 
 Williamson CM, Romeo RD & Curley JP, 2017, Dynamic changes in social dominance and mPOA GnRH expression in male mice following social opportunity, Hormones & Behavior 87:80-88. 
-PDF
+
 
 Williamson CM, Lee W, Romeo RD & Curley JP, 2017, Social context-dependent relationships between mouse dominance rank and plasma hormone levels. Physiology & Behavior.
 
