@@ -56,6 +56,15 @@ Curley JP, 2016, Temporal Pairwise-Correlation Analysis Provides Empirical Suppo
 
 Williamson C, Lee W & Curley JP, 2016, Temporal Dynamics of Social Hierarchy Formation and Maintenance in Male Mice., Animal Behaviour.
 
+Williamson CM, Franks B & Curley JP, 2016, Mouse Social Network Dynamics and Community Structure are Associated with Brain Plasticity-Related Gene Expression, Frontiers in Behavioral Neuroscience 10:152.
+
+Arseneau-Robara TJM et al., 2017, Intra- and interindividual differences in the costs and benefits of intergroup aggression in female vervet monkeys, Animal Behaviour 123:129–137.
+
+Williamson CM, Romeo RD & Curley JP, 2017, Dynamic changes in social dominance and mPOA GnRH expression in male mice following social opportunity, Hormones & Behavior 87:80-88. 
+PDF
+
+Williamson CM, Lee W, Romeo RD & Curley JP, 2017, Social context-dependent relationships between mouse dominance rank and plasma hormone levels. Physiology & Behavior.
+
 
 <br>
 <br>
