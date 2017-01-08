@@ -48,7 +48,7 @@ Curley, J.P.  2016, compete: Analyzing Social Hierarchies: R package version 0.1
 
 #### Published papers
 
-This package was used in the following papers:
+<u>This package was used in the following papers:</u>
 
 So, N. et al. 2015, A Social Network Approach Reveals Associations between Mouse Social Dominance and Brain Gene Expression,  <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0134509" target="_blank">PLOS ONE</a>
 
