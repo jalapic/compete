@@ -50,6 +50,8 @@ Curley, J.P.  2016, compete: Analyzing Social Hierarchies: R package version 0.1
 
 _This package was used in the following papers:_
 
+Pineda-Galindo E, Cedra-Molina AL, Mayagoitia-Novales L, Matamoros-Trejo G, de la O C, 2017, Biological Validataions of Fecal Glucocorticoid, Testosterone, and Progesterone Metabolite Measurements in Captive Stumptail Macaques (Macaca arctoides), Int J Primatol DOIL 10.1007/s10764-017-9992-7
+
 [See publication list of Curley Lab here](http://curleylab.psych.columbia.edu/pubs.html) for some examples.
 
 So, N. et al. 2015, A Social Network Approach Reveals Associations between Mouse Social Dominance and Brain Gene Expression,  <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0134509" target="_blank">PLOS ONE</a>
