@@ -6,7 +6,7 @@ Analyzing head-to-head competitive interaction data
 ### Author: James P. Curley, 
 ### Contributions: Jiayi Fu, Ke Shen & Ziheng Huang
 ### Maintainer: James P. Curley
-email:  jc3181  AT columbia DOT edu
+email:  curley AT utexas DOT edu
 
 
 
