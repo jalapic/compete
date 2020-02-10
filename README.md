@@ -67,6 +67,18 @@ van Overveld T et al, 2020, Seasonal grouping dynamics in a territorial vulture:
 Ebenau A et al 2019, Personality homophily affects male social bonding in wild Assamese macaques, Macaca assamensis,  Animal Behaviour 155:21-35 https://www.sciencedirect.com/science/article/pii/S0003347219302052
 
 <br>
+<br>
+
+_Some preprints (as of Feb 2020):_
+
+Vilette C. et al., Ranking the Ranking Methodologies: Determining Temporal Stability in Dominance Hierarchies, https://www.biorxiv.org/content/10.1101/692384v1.abstract
+
+Karamihalev S. et al., Sexually divergent effects of social dominance on chronic stress outcomes in mice, https://www.biorxiv.org/content/10.1101/2020.02.04.933481v1
+
+<br>
+<br>
+
+_Some papers from my lab also:_
 
 [See publication list of Curley Lab here](https://labs.la.utexas.edu/curley/publications/) for some examples.
 
