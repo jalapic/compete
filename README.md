@@ -97,6 +97,10 @@ Williamson CM, Romeo RD & Curley JP, 2017, Dynamic changes in social dominance a
 
 Williamson CM, Lee W, Romeo RD & Curley JP, 2017, Social context-dependent relationships between mouse dominance rank and plasma hormone levels. Physiology & Behavior.
 
+Lee W, Hiura L, Yang E, Broekman KA, Ophir AG, Curley J. 2019. Social status in mouse social hierarchies is associated with variation in oxytocin and vasopressin 1a receptor densities. Hormones and Behavior.
+
+Williamson CM, Lee W, Decasien AR, Lanham A, Romeo RD, Curley JP. Social hierarchy position in female mice is associated with plasma corticosterone levels and hypothalamic gene expression. Sci Reports. 2019 Jan 1:529131.
+
 
 <br>
 <br>
