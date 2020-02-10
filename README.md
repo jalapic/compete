@@ -52,6 +52,7 @@ _Please let me know if you use this package in your papers. Unfortunately I don'
 
 _This package was used in the following papers:_
 
+<br>
 
 Arseneau-RobarabAnouk JM, 2017, Intra- and interindividual differences in the costs and benefits of intergroup aggression in female vervet monkeys, Animal Behaviour 123: 129-137, https://www.sciencedirect.com/science/article/pii/S0003347216302858.
 
@@ -65,6 +66,7 @@ van Overveld T et al, 2020, Seasonal grouping dynamics in a territorial vulture:
 
 Ebenau A et al 2019, Personality homophily affects male social bonding in wild Assamese macaques, Macaca assamensis,  Animal Behaviour 155:21-35 https://www.sciencedirect.com/science/article/pii/S0003347219302052
 
+<br>
 
 [See publication list of Curley Lab here](https://labs.la.utexas.edu/curley/publications/) for some examples.
 
