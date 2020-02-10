@@ -40,6 +40,9 @@ Curley, J.P.  2016, compete: Analyzing Social Hierarchies: R package version 0.1
 - isi98 - I&SI ranking of Sociomatrix (see documentation)
 - isi13 - I&SI ranking of Sociomatrix using updated algorithm (see documentation)
 - ds - get David's Scores of Sociomatrix
+- rshps  - get summary info of all relationships in matrix
+- unknonws - number of unknowns in matrix
+- sparseness - get sparseness of matrix
 
 
 
