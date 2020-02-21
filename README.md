@@ -71,6 +71,8 @@ Ebenau A et al 2019, Personality homophily affects male social bonding in wild A
 
 Mishra PS et al. 2020,  Do males bond? A study of male-male relationships in Nicobar long-tailed macaques Macaca fascicularis umbrosus, Journal of Biosciences 45:22. https://link.springer.com/article/10.1007/s12038-020-9995-y
 
+Diniz P et al 2019, Angry caciques: intrasexual aggression in a Neotropical colonial blackbird, Ethology, Ecology & Evolution 31:205-218.
+
 <br>
 <br>
 
